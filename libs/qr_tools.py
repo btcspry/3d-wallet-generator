@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import pyqrcode # sudo pip install pyqrcode
 
 def getQRArray(text, errorCorrection):
