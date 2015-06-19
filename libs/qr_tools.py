@@ -14,8 +14,6 @@ def getQRArray(text, errorCorrection):
 	# Get the terminal representation and split by lines (get rid of top and bottom white spaces)
 	plainOut = qr.terminal().split("\n")[5:-5]
 
-	print(qr.terminal())
-
 	# Initialize the output 2D list
 	out = []
 
