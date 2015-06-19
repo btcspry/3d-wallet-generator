@@ -9,8 +9,10 @@ def getQRArray(text, errorCorrection):
 	# Create the object
 	qr = pyqrcode.create(text, error=errorCorrection)
 
-	# Get the terminal representation and split by lines
-	plainOut = qr.terminal().split("\n")
+	# Get the terminal representation and split by lines (get rid of top and bottom white spaces)
+	plainOut = qr.terminal().split("\n")[5:-5]
+
+	print(qr.terminal())
 
 	# Initialize the output 2D list
 	out = []
@@ -24,8 +26,8 @@ def getQRArray(text, errorCorrection):
 			elif char == u'4':
 				# This is black, it's part of the u'49'
 				thisOut.append(0)
-		# Finally add everything to the output
-		out.append(thisOut)
+		# Finally add everything to the output, stipping whitespaces at start and end
+		out.append(thisOut[4:-4])
 
 	# Everything is done, return the qr code list
 	return out
