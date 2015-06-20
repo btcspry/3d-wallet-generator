@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 
-import time
 from libs import qr_tools as qrTools
+import bitcoin # sudo pip3 install bitcoin
 import argparse
+import time
+import sys
 
 def parse_args():
 	parser = argparse.ArgumentParser(description='Generate an STL file of a 3D-printable bitcoin, litecoin, dogecoin, or other type of coin.', formatter_class=argparse.RawTextHelpFormatter)
-	parser.add_argument('-ve', '--version', dest='version', type=int, default=0, help='Version Bit of the address (for other altcoins).\nBitcoin: 0\n Litecoin: 48\n Dogecoin: 30')
+	parser.add_argument('-ve', '--version', dest='versionByte', type=int, default=0, help='Version Bit of the address (for other altcoins).\nBitcoin: 0\n Litecoin: 48\n Dogecoin: 30')
 	parser.add_argument('-ct', '--coin-title', dest='coinTitle', type=str, default="Bitcoin", help='Title of the coin, used for design purposes')
 	parser.add_argument('-ls', '--layout-style', dest='layoutStyle', type=int, default=1, help="Layout style of the wallet.\n1) Both QR Codes on the Front\n2) Address on the Front, Private Key on the back\n3) Private Key Only\n4) Address Only (don't forget to export the Private Keys after)")
 	parser.add_argument('-wi', '--width', dest='walletWidth', type=float, default=54.0, help='The width of the wallet in mm. The length is calculated automatically. Default option is approximately standard credit card legnth and width.')
@@ -24,3 +26,16 @@ def parse_args():
 	return parser.parse_args()
 
 args = parse_args()
+
+# Generate the addresses
+if args.copies < 1:
+	print("Please enter a valid number of copies (-co flag), and try again.")
+	sys.exit()
+else:
+	walletDataList = []
+	for i in range(args.copies):
+		thisData = {}
+		thisData["privateKey"] = bitcoin.main.random_key() # Secure: uses random library, time library and proprietary function
+		thisData["wifPrivateKey"] = bitcoin.encode_privkey(thisData["privateKey"], "wif", args.versionByte)
+		thisData["address"] = bitcoin.privkey_to_address(thisData["privateKey"], args.versionByte)
+		walletDataList.append(thisData) # Append all the wallet information, just in case we want to do something with it later
