@@ -80,9 +80,9 @@ moduleFile.close()
 
 # Draw the main object
 if args.roundCorners:
-	masterSCAD += "roundCornersCube(" + str(walletWidth) + "," + str(walletLength) + "," + str(walletHeight) + ");\n"
+	masterSCAD += "roundCornersCube(" + str(walletLength) + "," + str(walletWidth) + "," + str(walletHeight) + ");\n"
 else:
-	masterSCAD += "cube([" + str(walletWidth) + "," + str(walletLength) + "," + str(walletHeight) + "]);\n"
+	masterSCAD += "cube([" + str(walletLength) + "," + str(walletWidth) + "," + str(walletHeight) + "]);\n"
 
 # Break into the loop for each wallet
 for data in walletDataList:
@@ -111,10 +111,16 @@ for data in walletDataList:
 		row = bigTitle[rowIndex]
 		for colIndex in range(len(row)):
 			if row[colIndex] == '1':
-				bigTitleUnion += "translate([colIndex,rowIndex,0]){cube([1,1,1]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex))
+				translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
+				bigTitleUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 	bigTitleUnion += "};"
 
-	print(bigTitleUnion)
+	# Translate Y = walletWidth - (3/17)*walletWidth = (14/17)*walletWidth
+	# Translate X = (walletLength - (15/17)*walletLength)/2 = (1/17)*walletLength
+	bigTitleFinal = "translate([(1/17)*length,(14/17)*width,0]){resize([(15.0/17.0)*length,0,0],auto=[true,true,false]){bigTitleUnion}}".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('bigTitleUnion',bigTitleUnion).replace('bitWidth',str(len(bigTitle[0])))
+
+	print(masterSCAD)
+	print(bigTitleFinal)
 	break
 
 
