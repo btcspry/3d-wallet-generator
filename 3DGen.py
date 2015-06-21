@@ -118,7 +118,11 @@ for data in walletDataList:
 	# Translate Y = walletWidth - (3/17)*walletWidth = (14/17)*walletWidth
 	# Translate X = (walletLength - (15/17)*walletLength)/2 = (1/17)*walletLength
 	bigTitleFinal = "translate([(1/17)*length,(14/17)*width,0]){resize([(15.0/17.0)*length,0,0],auto=[true,true,false]){bigTitleUnion}}".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('bigTitleUnion',bigTitleUnion).replace('bitWidth',str(len(bigTitle[0])))
-
+	if args.layoutStyle == 1:
+		# Need to copy it on to the backside as well
+		translateHeight = walletHeight if textDepth>0 else walletHeight+abs(textDepth)
+		bigTitle2 = "translate([length,0,translateHeight]){rotate(180,v=[0,1,0]){bigTitleFinal}}".replace('length',str(walletLength)).replace('height',str(walletHeight)).replace('bigTitleFinal',bigTitleFinal).replace('translateHeight',str(translateHeight))
+		bigTitleFinal = "union(){" + bigTitleFinal + "\n" + bigTitle2 + "}\n"
 	print(masterSCAD)
 	print(bigTitleFinal)
 	break
