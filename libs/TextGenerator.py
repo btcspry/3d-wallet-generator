@@ -108,11 +108,10 @@ decTable = ["00000", "00001", "00010", "00011", "00100", "00101",
             "11110", "11111"]
 
 def getArray(text):
-      outArray = [[],[],[],[],[],[],[]] # Initialize the empty rows
+      outArray = [""]*7 # Initialize the empty rows
       for thisChar in text:
             index = chars.index(thisChar)
             thisDec = characterTable[index]
-            thisDec.reverse() # Otherwise everything happens upside down
             for rowIndex in range(len(thisDec)):
-                  outArray[rowIndex].extend(decTable[thisDec[rowIndex]]) # Add onto the current row in outArray based on the decode table at this decimal value (thisDec[rowIndex] = thisRow)
+                  outArray[rowIndex] += (decTable[thisDec[rowIndex]])+"0" # Add onto the current row in outArray based on the decode table at this decimal value (thisDec[rowIndex] = thisRow), adding a 0 for spacing at the end
       return outArray
