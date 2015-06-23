@@ -7,6 +7,8 @@ import argparse
 import time
 import math
 import sys
+import os
+import distutils.spawn
 
 def parse_args():
 	parser = argparse.ArgumentParser(description='Generate an STL file of a 3D-printable bitcoin, litecoin, dogecoin, or other type of coin.', formatter_class=argparse.RawTextHelpFormatter)
@@ -19,6 +21,7 @@ def parse_args():
 	parser.add_argument('-ec', '--qr-error-correction', dest='errorCorrection', type=str, default="M", help='The percentage of the QR codes that can be destroyed before they are irrecoverable\nL) 7%\nM) 15%\nQ) 25%\nH) 30%')
 	parser.add_argument('-rc', '--round-corners', dest='roundCorners', action='store_true', help="Round the coners (four short edges) of the wallet.")
 	parser.add_argument('-co', '--copies', dest='copies', type=int, default=5, help='The number of wallets to generate. These will all be unique and randomly-generate wallets (not copies).')
+	parser.add_argument('-sd', '--openscad-exe', dest='scadExe', type=str, default="openscad", help='The location and filename of the command line tools for OpenSCAD (leave as default if it is installed as a command [ie. Linux])')
 	parser.add_argument('-o', '--stl-folder', dest='outputSTLFolder', type=str, default="./WalletsOut/", help='The output folder to export the STL files into')
 	parser.add_argument('-oc', '--scad-folder', dest='outputSCADFolder', type=str, default='', help='The output folder to store the SCAD generation files in (optional, only used for debugging)')
 	parser.add_argument('-ea', '--export-address-csv', dest='exportAddressCSV', type=str, default='', help='The output CSV file to export the address list to (optional)')
@@ -90,6 +93,15 @@ mainCube += "\n\n"
 
 # Init a variable to keep all the additive/subtractive parts
 finalParts = []
+
+# Init variables to keep the CSV output data in
+addressOut = []
+privkeyOut = []
+APOut = []
+PAOut = []
+
+# Set a counter for naming the files
+filenameCounter = 1
 
 # Break into the loop for each wallet
 for data in walletDataList:
@@ -269,8 +281,65 @@ for data in walletDataList:
 	finalSCAD += "".join(finalParts)
 	finalSCAD += "}"
 
-	print(finalSCAD)
+	if args.outputSCADFolder:
+		os.makedirs(args.outputSCADFolder)
+		scadOutFile = open(args.outputSCADFolder + '/wallet' + str(filenameCounter) + '.scad','w')
+		scadOutFile.write(finalSCAD)
+		scadOutFile.close()
 
-	break
+	# Check the openscad command
+	scadExe = args.scadExe
+	if args.scadExe == "openscad" and not distutils.spawn.find_executable("openscad"):
+		if os.path.isfile("/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD"):
+			print("OpenSCAD found in Applications folder on Mac")
+			scadExe = "/Applications/OpenSCAD.app/Contents/MacOS/OpenSCAD"
+		elif os.path.isfile("%PROGRAMFILES%\OpenSCAD\openscad.exe"):
+			print("OpenSCAD found in Program Files on Windows")
+			scadExe = "%PROGRAMFILES%\OpenSCAD\openscad.exe"
+		elif os.path.isfile("%PROGRAMFILES(x86)%\OpenSCAD\openscad.exe"):
+			print("OpenSCAD found in Program Files (x86) on Windows")
+			scadExe = "%PROGRAMFILES(x86)%\OpenSCAD\openscad.exe"
+	if not distutils.spawn.find_executable(scadExe):
+		print("Please install OpenSCAD or specify the location of it with --openscad-exe.")
+
+	if args.outputSTLFolder:
+		os.makedirs(args.outputSTLFolder)
+		scadOutFile = open('temp.scad','w')
+		scadOutFile.write(finalSCAD)
+		scadOutFile.close()
+		os.system(scadExe + " -o " + args.outputSTLFolder + "/wallet" + str(filenameCounter) + ".stl temp.scad")
+		try:
+			os.remove('temp.scad')
+		except:
+			pass
+	else:
+		print("Please provide a folder to output the STL files.")
+
+	# Update the CSV file variables
+	addressOut.append(data["address"])
+	privkeyOut.append(data["wif"])
+	APOut.append(data["address"] + "," + data["wif"])
+	PAOut.append(data["wif"] + "," + data["address"])
+
+# Export the CSV files
+if args.exportAddressCSV:
+	csvFile = open(args.exportAddressCSV,'a')
+	csvFile.write(','.join(addressOut))
+	csvFile.close()
+
+if args.exportPrivkeyCSV:
+	csvFile = open(args.exportPrivkeyCSV,'a')
+	csvFile.write(','.join(privkeyOut))
+	csvFile.close()
+
+if args.exportAPCSV:
+	csvFile = open(args.exportAPCSV,'a')
+	csvFile.write('\n'.join(exportAPCSV))
+	csvFile.close()
+
+if args.exportPACSV:
+	csvFile = open(args.exportPACSV,'a')
+	csvFile.write('\n'.join(exportPACSV))
+	csvFile.close()
 
 
