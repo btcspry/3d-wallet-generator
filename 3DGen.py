@@ -12,7 +12,7 @@ def parse_args():
 	parser = argparse.ArgumentParser(description='Generate an STL file of a 3D-printable bitcoin, litecoin, dogecoin, or other type of coin.', formatter_class=argparse.RawTextHelpFormatter)
 	parser.add_argument('-ve', '--version', dest='versionByte', type=int, default=0, help='Version Bit of the address (for other altcoins).\nBitcoin: 0\n Litecoin: 48\n Dogecoin: 30')
 	parser.add_argument('-ct', '--coin-title', dest='coinTitle', type=str, default="Bitcoin", help='Title of the coin, used for design purposes')
-	parser.add_argument('-ls', '--layout-style', dest='layoutStyle', type=int, default=2, help="Layout style of the wallet.\n1) Address on the Front, Private Key on the back\n2) Private Key Only\n3) Address Only (don't forget to export the Private Keys after)")
+	parser.add_argument('-ls', '--layout-style', dest='layoutStyle', type=int, default=1, help="Layout style of the wallet.\n1) Address on the Front, Private Key on the Back\n2) Private Key Only\n3) Address Only (don't forget to export the Private Keys after)")
 	parser.add_argument('-wi', '--width', dest='walletWidth', type=float, default=54.0, help='The width of the wallet in mm. The length is calculated automatically. Default option is approximately standard credit card legnth and width.')
 	parser.add_argument('-he', '--height', dest='walletHeight', type=float, default=8.0, help='The height of the wallet in mm.')
 	parser.add_argument('-bo', '--black-offset', dest='blackOffset', type=int, default=-30, help='The percentage of the height that the black part of the QR code, and the text, will be raised or lowered by.\nNegative number for lowered, positive for raised.  Option must be greater than -50.')
@@ -49,6 +49,10 @@ else: # Use an else statement here just in case we add the option to import a CS
 			sys.exit()
 		thisData["wifQR"] = qrTools.getQRArray(thisData["wif"], args.errorCorrection.upper())
 		thisData["addressQR"] = qrTools.getQRArray(thisData["address"], args.errorCorrection.upper())
+
+		# Reverse them or else they appear backwards (unknown reason)
+		thisData["wifQR"] = list(reversed(thisData["wifQR"]))
+		thisData["addressQR"] = list(reversed(thisData["addressQR"]))
 
 		# Append ALL the wallet information, just in case we want to do something with it later
 		walletDataList.append(thisData) 
@@ -100,38 +104,37 @@ for data in walletDataList:
 
 	addressLine1Dots = textGen.getArray(addressLine1)
 	addressLine2Dots = textGen.getArray(addressLine2)
-	wifLine1Dots = textGen.getArray(wifLine1)
-	wifLine2Dots = textGen.getArray(wifLine2)
-	wifLine3Dots = textGen.getArray(wifLine3)
+	privkeyLine1Dots = textGen.getArray(wifLine1)
+	privkeyLine2Dots = textGen.getArray(wifLine2)
+	privkeyLine3Dots = textGen.getArray(wifLine3)
 
 	bigTitle = textGen.getArray("3D " + args.coinTitle + " Wallet")
 	addressTitle = textGen.getArray("Address")
 	privkeyTitle = textGen.getArray("Private Key")
 
 	# Create the big title union so that it can be sized and moved
-	bigTitleUnion = "union(){"
+	bigTitleUnion = ""
 	for rowIndex in range(len(bigTitle)):
 		row = bigTitle[rowIndex]
 		for colIndex in range(len(row)):
 			if row[colIndex] == '1':
 				translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 				bigTitleUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
-	bigTitleUnion += "}"
 
 	# Translate the title to where it goes
 	bigTitleFinal = "translate([(1/17)*length,(14/17)*width,0]){resize([(15/17)*length,0,0],auto=[true,true,false]){bigTitleUnion}}".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('bigTitleUnion',bigTitleUnion)
+	finalParts.append(bigTitleFinal+"\n\n")
 	if args.layoutStyle == 1:
 		# Need to copy it on to the backside as well - rotate then move it, and then create a union of the two titles (front and back)
 		bigTitle2 = "translate([length,0,height]){rotate(180,v=[0,1,0]){bigTitleFinal}}".replace('length',str(walletLength)).replace('height',str(walletHeight)).replace('bigTitleFinal',bigTitleFinal).replace('translateHeight',str(translateHeight))
-		bigTitleFinal = "union(){\n" + bigTitleFinal + "\n" + bigTitle2 + "\n}\n\n"
-	finalParts.append(bigTitleFinal)
+		finalParts.append(bigTitle2+"\n\n")
 	
 	# Draw the word "Address" on the front, and draw on the actual address
 	if args.layoutStyle == 1 or args.layoutStyle == 3:
 		# Draw the address on the front
 		addressParts = []
 
-		# Create the address title union so that it can be sized and moved
+		# Create the address title union and size/move it
 		addressTitleUnion = "union(){"
 		for rowIndex in range(len(addressTitle)):
 			row = addressTitle[rowIndex]
@@ -181,9 +184,93 @@ for data in walletDataList:
 		
 		finalParts.extend(addressParts)
 
-		print(masterSCAD,end="")
-		print(mainCube,end="")
-		print("".join(finalParts))
+	# Draw all the things having to do with the private key
+	if args.layoutStyle == 1 or args.layoutStyle == 2:
+		privkeyParts = []
+
+		# Create the privkey title union and size/move it
+		privkeyTitleUnion = "union(){"
+		for rowIndex in range(len(privkeyTitle)):
+			row = privkeyTitle[rowIndex]
+			for colIndex in range(len(row)):
+				if row[colIndex] == '1':
+					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
+					privkeyTitleUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
+		privkeyTitleUnion += "}"
+		privkeyTitleFinal = "translate([(10.5/17)*length,(7/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){privkeyTitleUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyTitleUnion',privkeyTitleUnion)
+		privkeyParts.append(privkeyTitleFinal)
+
+		# Create the first line of the privkey
+		privkeyLine1Union = "union(){"
+		for rowIndex in range(len(privkeyLine1Dots)):
+			row = privkeyLine1Dots[rowIndex]
+			for colIndex in range(len(row)):
+				if row[colIndex] == '1':
+					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
+					privkeyLine1Union += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
+		privkeyLine1Union += "}"
+		privkeyLine1Final = "translate([(10/17)*length,(6/11)*width,0]){resize([0,(2/55)*width,0],auto=[true,true,false]){privkeyLine1Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine1Union',privkeyLine1Union)
+		privkeyParts.append(privkeyLine1Final)
+
+		# Create the second line of the privkey
+		privkeyLine2Union = "union(){"
+		for rowIndex in range(len(privkeyLine2Dots)):
+			row = privkeyLine2Dots[rowIndex]
+			for colIndex in range(len(row)):
+				if row[colIndex] == '1':
+					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
+					privkeyLine2Union += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
+		privkeyLine2Union += "}"
+		privkeyLine2Final = "translate([(10/17)*length,(5.5/11)*width,0]){resize([0,(2/55)*width,0],auto=[true,true,false]){privkeyLine2Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine2Union',privkeyLine2Union)
+		privkeyParts.append(privkeyLine2Final)
+
+		# Create the third line of the privkey
+		privkeyLine3Union = "union(){"
+		for rowIndex in range(len(privkeyLine3Dots)):
+			row = privkeyLine3Dots[rowIndex]
+			for colIndex in range(len(row)):
+				if row[colIndex] == '1':
+					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
+					privkeyLine3Union += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
+		privkeyLine3Union += "}"
+		privkeyLine3Final = "translate([(10/17)*length,(5/11)*width,0]){resize([0,(2/55)*width,0],auto=[true,true,false]){privkeyLine3Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine3Union',privkeyLine3Union)
+		privkeyParts.append(privkeyLine3Final)
+
+		# Create the QR code
+		privkeyQRUnion = "union(){"
+		for rowIndex in range(len(data["wifQR"])):
+			row = data["wifQR"][rowIndex]
+			for colIndex in range(len(row)):
+				if row[colIndex] == 0:
+					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
+					privkeyQRUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
+		privkeyQRUnion += "}"
+		privkeyQRFinal = "translate([(1.4/17)*length,(1.4/11)*width,0]){resize([0,(7/12)*width,0],auto=[true,true,false]){privkeyQRUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyQRUnion',privkeyQRUnion)
+		privkeyParts.append(privkeyQRFinal)
+
+
+		if args.layoutStyle == 2:
+			# Just add it all to the finalParts
+			finalParts.extend(privkeyParts)
+		elif args.layoutStyle == 1:
+			# Rotate it all and then add it to the finalParts
+			privkeyPartsNew = []
+			for part in privkeyParts:
+				privkeyPartsNew.append("translate([length,0,height]){rotate(180,v=[0,1,0]){part}}".replace('length',str(walletLength)).replace('height',str(walletHeight)).replace('part',part).replace('translateHeight',str(translateHeight)))
+			finalParts.extend(privkeyPartsNew)
+
+	# Put it all together
+	finalSCAD = masterSCAD
+	if textDepth < 0:
+		finalSCAD += "difference() {\n\n"
+	else:
+		finalSCAD += "union() {\n\n"
+	finalSCAD += mainCube
+	finalSCAD += "".join(finalParts)
+	finalSCAD += "}"
+
+	print(finalSCAD)
 
 	break
+
 
