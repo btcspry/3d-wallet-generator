@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import pyqrcode # sudo pip install pyqrcode
+import pyqrcode # sudo pip3 install pyqrcode
 
 def getQRArray(text, errorCorrection):
 	""" Takes in text and errorCorrection (letter), returns 2D array of the QR code"""
