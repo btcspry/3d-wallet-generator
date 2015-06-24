@@ -21,7 +21,7 @@ def parse_args():
 	parser.add_argument('-ec', '--qr-error-correction', dest='errorCorrection', type=str, default="M", help='The percentage of the QR codes that can be destroyed before they are irrecoverable\nL) 7 percent\nM) 15 percent\nQ) 25 percent\nH) 30 percent')
 	parser.add_argument('-rc', '--round-corners', dest='roundCorners', action='store_true', help="Round the coners (four short edges) of the wallet.")
 	parser.add_argument('-co', '--copies', dest='copies', type=int, default=5, help='The number of wallets to generate. These will all be unique and randomly-generate wallets (not copies).')
-	parser.add_argument('-sd', '--openscad-exe', dest='scadExe', type=str, default="openscad", help='The location and filename of the command line tools for OpenSCAD (leave as default if it is installed as a command [ie. Linux])')
+	parser.add_argument('-sd', '--openscad-exe', dest='scadExe', type=str, default="openscad", help='The location and filename of the command line tools for OpenSCAD (leave as default if it is installed as a command [ie. Linux])\nIn most cases on Windows and Mac, the executable will be found automatically.')
 	parser.add_argument('-o', '--stl-folder', dest='outputSTLFolder', type=str, default="./WalletsOut/", help='The output folder to export the STL files into')
 	parser.add_argument('-oc', '--scad-folder', dest='outputSCADFolder', type=str, default='', help='The output folder to store the SCAD generation files in (optional, only used for debugging)')
 	parser.add_argument('-ea', '--export-address-csv', dest='exportAddressCSV', type=str, default='', help='The output CSV file to export the address list to (optional)')
