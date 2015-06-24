@@ -175,7 +175,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					addressTitleUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		addressTitleUnion += "}"
-		addressTitleFinal = "translate([(11.25/17)*length,(7/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){addressTitleUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('addressTitleUnion',addressTitleUnion)
+		addressTitleFinal = "translate([(10/17)*length,(6/11)*width,0]){resize([0,(4/55)*width,0],auto=[true,true,false]){addressTitleUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('addressTitleUnion',addressTitleUnion)
 		addressParts.append(addressTitleFinal)
 
 		# Create the first line of the address
@@ -187,7 +187,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					addressLine1Union += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		addressLine1Union += "}"
-		addressLine1Final = "translate([(10/17)*length,(6/11)*width,0]){resize([0,(2/55)*width,0],auto=[true,true,false]){addressLine1Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('addressLine1Union',addressLine1Union)
+		addressLine1Final = "translate([(8.2/17)*length,(5/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){addressLine1Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('addressLine1Union',addressLine1Union)
 		addressParts.append(addressLine1Final)
 
 		# Create the second line of the address
@@ -199,7 +199,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					addressLine2Union += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		addressLine2Union += "}"
-		addressLine2Final = "translate([(10/17)*length,(5.5/11)*width,0]){resize([0,(2/55)*width,0],auto=[true,true,false]){addressLine2Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('addressLine2Union',addressLine2Union)
+		addressLine2Final = "translate([(8.2/17)*length,(4.1/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){addressLine2Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('addressLine2Union',addressLine2Union)
 		addressParts.append(addressLine2Final)
 
 		# Create the QR code
@@ -211,7 +211,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					addressQRUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		addressQRUnion += "}"
-		addressQRFinal = "translate([(1.4/17)*length,(1.4/11)*width,0]){resize([0,(7/12)*width,0],auto=[true,true,false]){addressQRUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('addressQRUnion',addressQRUnion)
+		addressQRFinal = "translate([(0.6/17)*length,(0.6/11)*width,0]){resize([0,(8/12)*width,0],auto=[true,true,false]){addressQRUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('addressQRUnion',addressQRUnion)
 		addressParts.append(addressQRFinal)
 		
 		finalParts.extend(addressParts)
@@ -229,7 +229,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					privkeyTitleUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		privkeyTitleUnion += "}"
-		privkeyTitleFinal = "translate([(10.12/17)*length,(7/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){privkeyTitleUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyTitleUnion',privkeyTitleUnion)
+		privkeyTitleFinal = "translate([(8.7/17)*length,(7/11)*width,0]){resize([0,(4/55)*width,0],auto=[true,true,false]){privkeyTitleUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyTitleUnion',privkeyTitleUnion)
 		privkeyParts.append(privkeyTitleFinal)
 
 		# Create the first line of the privkey
@@ -241,7 +241,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					privkeyLine1Union += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		privkeyLine1Union += "}"
-		privkeyLine1Final = "translate([(10/17)*length,(6/11)*width,0]){resize([0,(2/55)*width,0],auto=[true,true,false]){privkeyLine1Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine1Union',privkeyLine1Union)
+		privkeyLine1Final = "translate([(8.2/17)*length,(6/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){privkeyLine1Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine1Union',privkeyLine1Union)
 		privkeyParts.append(privkeyLine1Final)
 
 		# Create the second line of the privkey
@@ -253,7 +253,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					privkeyLine2Union += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		privkeyLine2Union += "}"
-		privkeyLine2Final = "translate([(10/17)*length,(5.5/11)*width,0]){resize([0,(2/55)*width,0],auto=[true,true,false]){privkeyLine2Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine2Union',privkeyLine2Union)
+		privkeyLine2Final = "translate([(8.2/17)*length,(5.1/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){privkeyLine2Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine2Union',privkeyLine2Union)
 		privkeyParts.append(privkeyLine2Final)
 
 		# Create the third line of the privkey
@@ -265,7 +265,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					privkeyLine3Union += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		privkeyLine3Union += "}"
-		privkeyLine3Final = "translate([(10/17)*length,(5/11)*width,0]){resize([0,(2/55)*width,0],auto=[true,true,false]){privkeyLine3Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine3Union',privkeyLine3Union)
+		privkeyLine3Final = "translate([(8.2/17)*length,(4.2/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){privkeyLine3Union}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyLine3Union',privkeyLine3Union)
 		privkeyParts.append(privkeyLine3Final)
 
 		# Create the QR code
@@ -277,7 +277,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					privkeyQRUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		privkeyQRUnion += "}"
-		privkeyQRFinal = "translate([(1.4/17)*length,(1.4/11)*width,0]){resize([0,(7/12)*width,0],auto=[true,true,false]){privkeyQRUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyQRUnion',privkeyQRUnion)
+		privkeyQRFinal = "translate([(0.6/17)*length,(0.6/11)*width,0]){resize([0,(8/12)*width,0],auto=[true,true,false]){privkeyQRUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyQRUnion',privkeyQRUnion)
 		privkeyParts.append(privkeyQRFinal)
 
 		if args.layoutStyle == 2:
