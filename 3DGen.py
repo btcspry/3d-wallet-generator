@@ -225,7 +225,7 @@ for data in walletDataList:
 					translateHeight = walletHeight if textDepth>0 else walletHeight+textDepth
 					privkeyTitleUnion += "translate([colIndex,rowIndex,translateHeight]){cube([1,1,textDepth]);}".replace('colIndex',str(colIndex)).replace('rowIndex',str(rowIndex)).replace('textDepth',str(abs(textDepth))).replace('translateHeight',str(translateHeight))
 		privkeyTitleUnion += "}"
-		privkeyTitleFinal = "translate([(10.5/17)*length,(7/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){privkeyTitleUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyTitleUnion',privkeyTitleUnion)
+		privkeyTitleFinal = "translate([(10.12/17)*length,(7/11)*width,0]){resize([0,(3/55)*width,0],auto=[true,true,false]){privkeyTitleUnion}}\n\n".replace('length',str(walletLength)).replace('width',str(walletWidth)).replace('privkeyTitleUnion',privkeyTitleUnion)
 		privkeyParts.append(privkeyTitleFinal)
 
 		# Create the first line of the privkey
