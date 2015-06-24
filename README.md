@@ -41,3 +41,7 @@ We recommend you run the linux version off of a LiveUSB for maximum security (ju
 ## Miscellaneous
 - If you have any comments, questions, or feature requests, either submit an issue or contact us at btcspry@bitforwarder.com
 - We always accept donations at **1MF7hKShzq2iSV9ZZ9hEx6ATnHQpFtM7cF!!**  Please donate, this project took a bunch of effort and we want to make sure it was worth it.
+
+## To Do / Features Coming Soon
+- Add pictures
+- Add option to import your own addresses/private keys
