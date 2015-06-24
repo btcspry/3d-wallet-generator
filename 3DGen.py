@@ -32,6 +32,10 @@ def parse_args():
 
 args = parse_args()
 
+# Set DEBUG variable for testing purposes (changing styling)
+# If true, prints the SCAD to the terminal and then breaks after first generation
+DEBUG = False
+
 # Generate the addresses
 if args.copies < 1:
 	print("Please enter a valid number of copies (-co flag), and try again.")
@@ -295,6 +299,10 @@ for data in walletDataList:
 	finalSCAD += mainCube
 	finalSCAD += "".join(finalParts)
 	finalSCAD += "}"
+
+	if DEBUG:
+		print(finalSCAD)
+		break
 
 	if args.outputSCADFolder:
 		try:
