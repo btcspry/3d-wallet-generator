@@ -45,3 +45,4 @@ We recommend you run the linux version off of a LiveUSB for maximum security (ju
 ## To Do / Features Coming Soon
 - Add pictures
 - Add option to import your own addresses/private keys
+- Offset the white in the QR code (instead of just offsetting the black)
