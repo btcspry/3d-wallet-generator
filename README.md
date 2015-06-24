@@ -3,19 +3,24 @@
 
 Everyone who's seriously serious about bitcoin has tried paper wallet generators.  While the idea is great, paper isn't a great medium out of which to make something that stores significant value.  This this in mind, we set out to make a simple, easy-to-use software that can design and export 3D-printable wallets, with a variety of configuration options.
 
+## Dependencies
+- Python3: this project is designed for Python3, not Python2
+- PyBitcoin, just run `sudo pip3 install bitcoin`
+- PyQRCode, just run `sudo pip3 install pyqrcode`
+- OpenSCAD, just install from their website, and the program should find it automatically (submit an issue if it doesn't)
+
 ## Features
 - Supports a variety of configuration and size options
-- Exports file as STL
+- Exports wallets as STL
 - Export keys as CSV-file for import into other software (for big batches)
 - Set the configuration and let it generate millions of **random** wallets for you
-- Import a list of private keys to create wallets for
 - Support for other cryptocurrencies, including:
   - Bitcoin
   - Litecoin
   - Dogecoin
-  - More Coming Soon (submit an issue to request more options)
+  - Any other currency (as long as you know the version bit for address generation)
 
-## Instructions
+## Instructions (releases coming soon - not yet available)
 ### *Windows*
 1. Download the Windows binary from the `Releases` folder.
 2. Run the executable file, and enjoy!
