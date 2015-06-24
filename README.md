@@ -7,7 +7,7 @@ Everyone who's seriously serious about bitcoin has tried paper wallet generators
 - Python3: this project is designed for Python3, not Python2
 - PyBitcoin, just run `sudo pip3 install bitcoin`
 - PyQRCode, just run `sudo pip3 install pyqrcode`
-- OpenSCAD, just install from their website, and the program should find it automatically (submit an issue if it doesn't)
+- OpenSCAD 2015 (or higher), just install from their website, and the program should find it automatically (submit an issue if it doesn't)
 
 ## Features
 - Supports a variety of configuration and size options
