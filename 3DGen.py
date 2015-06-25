@@ -19,7 +19,7 @@ def parse_args():
 	parser.add_argument('-he', '--height', dest='walletHeight', type=float, default=8.0, help='The height of the wallet in mm. \n(Default: 8)')
 	parser.add_argument('-bo', '--black-offset', dest='blackOffset', type=int, default=-30, help='The percentage of the height that the black part of the QR code, and the text, will be raised or lowered by.\nNegative number for lowered, positive for raised.  Option must be greater than -50. \n(Default: -30)')
 	parser.add_argument('-ec', '--qr-error-correction', dest='errorCorrection', type=str, default="M", help='The percentage of the QR codes that can be destroyed before they are irrecoverable\nL) 7 percent\nM) 15 percent (Default)\nQ) 25 percent\nH) 30 percent')
-	parser.add_argument('-rc', '--round-corners', dest='roundCorners', action='store_true', help="Round the coners (four short edges) of the wallet. \n(Default: disabled)")
+	parser.add_argument('-dc', '--disable-round-corners', dest='roundCorners', action='store_false', help="Round the coners (four short edges) of the wallet. \n(Default: disabled)")
 	parser.add_argument('-co', '--copies', dest='copies', type=int, default=5, help='The number of wallets to generate. These will all be unique and randomly-generate wallets (not copies). \n(Default: 5)')
 	parser.add_argument('-sd', '--openscad-exe', dest='scadExe', type=str, default="openscad", help='The location and filename of the command line tools for OpenSCAD (leave as default if it is installed as a command [ie. Linux])\nIn most cases on Windows and Mac, the executable will be found automatically.')
 	parser.add_argument('-o', '--stl-folder', dest='outputSTLFolder', type=str, default="./WalletsOut/", help='The output folder to export the STL files into\n(Default: ./WalletsOut/)')
