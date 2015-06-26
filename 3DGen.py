@@ -17,7 +17,7 @@ def parse_args():
 	parser.add_argument('-ls', '--layout-style', dest='layoutStyle', type=int, default=1, help="Layout style of the wallet.\n1) Address on the Front, Private Key on the Back (Default)\n2) Private Key Only\n3) Address Only (don't forget to export the Private Keys after)")
 	parser.add_argument('-wi', '--width', dest='walletWidth', type=float, default=54.0, help='The width of the wallet in mm. The length is calculated automatically. Default option is approximately standard credit card legnth and width. \n(Default: 54.0)')
 	parser.add_argument('-he', '--height', dest='walletHeight', type=float, default=8.0, help='The height of the wallet in mm. \n(Default: 8)')
-	parser.add_argument('-bo', '--black-offset', dest='blackOffset', type=int, default=-30, help='The percentage of the height that the black part of the QR code, and the text, will be raised or lowered by.\nNegative number for lowered, positive for raised.  Option must be greater than -50. \n(Default: -30)')
+	parser.add_argument('-bo', '--black-offset', dest='blackOffset', type=int, default=-30, help='The percentage of the height that the black part of the QR code, and the text, will be raised or lowered by.\nNegative number for lowered, positive for raised.  Option must be greater than -90. \n(Default: -20)')
 	parser.add_argument('-ec', '--qr-error-correction', dest='errorCorrection', type=str, default="M", help='The percentage of the QR codes that can be destroyed before they are irrecoverable\nL) 7 percent\nM) 15 percent (Default)\nQ) 25 percent\nH) 30 percent')
 	parser.add_argument('-dc', '--disable-round-corners', dest='roundCorners', action='store_false', help="Round the coners (four short edges) of the wallet. \n(Default: disabled)")
 	parser.add_argument('-co', '--copies', dest='copies', type=int, default=5, help='The number of wallets to generate. These will all be unique and randomly-generate wallets (not copies). \n(Default: 5)')
@@ -72,8 +72,8 @@ if args.layoutStyle == 1 or args.layoutStyle == 2 or args.layoutStyle == 3:
 else:
 	print("Please choose a valid layout style option.")
 	sys.exit()
-if args.blackOffset < -50.0:
-	print("Please ensure that --black-offset (-bo flag) is set correctly, and is greater than -50.")
+if args.blackOffset < -90.0:
+	print("Please ensure that --black-offset (-bo flag) is set correctly, and is greater than -90.")
 	sys.exit()
 textDepth = (args.blackOffset/100) * walletHeight
 
