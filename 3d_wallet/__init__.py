@@ -1,7 +1,8 @@
 #!/usr/bin/python3
 
-from libs import qr_tools as qrTools
-from libs import TextGenerator as textGen
+import qr_tools as qrTools # Module for this project
+import TextGenerator as textGen # Module for this project
+
 import bitcoin # sudo pip3 install bitcoin
 import argparse
 import time
