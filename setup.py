@@ -11,7 +11,7 @@ setup(
     author = 'BTC Spry',
     author_email = 'btcspry@bitforwarder.com',
     url = 'https://github.com/btcspry/3d-wallet-generator',
-    install_requires=["bitcoin>=1.1.29","PyQrCode>=1.1"],
+    #install_requires=["bitcoin>=1.1.29","PyQrCode>=1.1"],
     keywords = ['bitcoin','litecoin','dogecoin','wallet','3d printer','cryptocurrency','altcoin','money'],
     classifiers = ["Programming Language :: Python :: 3","License :: OSI Approved :: MIT License","Operating System :: OS Independent","Intended Audience :: End Users/Desktop","Environment :: Console","Development Status :: 4 - Beta","Topic :: Utilities"],
     entry_points={
