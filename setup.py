@@ -5,7 +5,7 @@ long_description = open('README.rst').read()
 setup(
     name = '3d-wallet-generator',
     packages = ['3d_wallet'], # this must be the same as the name above
-    version = '0.1.11',
+    version = '0.1.12',
     description = 'A tool to help you design and export 3D-printable wallets',
     long_description=long_description,
     author = 'BTC Spry',
