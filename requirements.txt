@@ -1,2 +1,0 @@
-bitcoin>=1.1.29
-PyQRCode>=1.1
