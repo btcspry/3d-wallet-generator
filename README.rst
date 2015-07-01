@@ -15,10 +15,10 @@ Dependencies
 ------------
 
 -  Python3: this project is designed for Python3, not Python2
--  PyBitcoin, just run ``sudo pip3 install bitcoin`` - Installs automatically
--  PyQRCode, just run ``sudo pip3 install pyqrcode`` - Installs automatically
+-  PyBitcoin, ``sudo pip3 install bitcoin`` **(no manual installation required)**
+-  PyQRCode, ``sudo pip3 install pyqrcode`` **(no manual installation required)**
 -  OpenSCAD 2015 (or higher), just install from their website, and the
-   program should find it automatically (submit an issue if it doesn't) - Manual installation required
+   program should find it automatically (submit an issue if it doesn't) - **(manual installation required)**
 
 Features
 --------
@@ -30,11 +30,10 @@ Features
 -  Set the configuration and let it generate millions of **random**
    wallets for you
 -  Support for other cryptocurrencies, including:
--  Bitcoin
--  Litecoin
--  Dogecoin
--  Any other currency (as long as you know the version bit for address
-   generation)
+	- Bitcoin
+	- Litecoin
+	- Dogecoin
+	- Any other currency (as long as you know the version bit for address generation)
 
 Instructions
 ------------
