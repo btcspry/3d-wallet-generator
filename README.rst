@@ -15,10 +15,10 @@ Dependencies
 ------------
 
 -  Python3: this project is designed for Python3, not Python2
--  PyBitcoin, just run ``sudo pip3 install bitcoin``
--  PyQRCode, just run ``sudo pip3 install pyqrcode``
+-  PyBitcoin, just run ``sudo pip3 install bitcoin`` - Installs automatically
+-  PyQRCode, just run ``sudo pip3 install pyqrcode`` - Installs automatically
 -  OpenSCAD 2015 (or higher), just install from their website, and the
-   program should find it automatically (submit an issue if it doesn't)
+   program should find it automatically (submit an issue if it doesn't) - Manual installation required
 
 Features
 --------
@@ -36,31 +36,29 @@ Features
 -  Any other currency (as long as you know the version bit for address
    generation)
 
-Instructions (releases coming soon - not yet available)
--------------------------------------------------------
+Instructions
+------------
 
-*Windows*
-~~~~~~~~~
+1. Install pip
+	- Windows: download from their website
+	- Mac: install from MacPorts or Brew
+	- Linux: ``sudo apt-get install python3-pip``
+2. Install OpenSCAD
+	- Download from their website: http://www.openscad.org/
+	- Make sure you are running their newest version (or at least OpenSCAD 2015)
+	- Contact us if you need help.  
+2. Install our package
+	- Try: ``pip install 3d-wallet-generator``
+	- If it failes, try: ``pip install 3d-wallet-generator``
+	- If it continues to fail, shoot us an email and we'll try to help.
+3. Use our package
+	- Run ``3dwallet -h`` to see your options
+	- Try the default settings by running `3dwallet` - it will output five wallets, with the default settings, into a folder in your current directory.
+	- Play with the other settings and decide how your printer, CNC, etc. likes the different styles.
+	- Film it or take a picture, and give it to us! We'll add it to our collection!
 
-1. Download the Windows binary from the ``Releases`` folder.
-2. Run the executable file, and enjoy!
-
-*Mac*
-~~~~~
-
-1. Download the Mac binary (DMG archive) from the ``Releases`` folder.
-2. Drag the application to your applications folder.
-3. Run the application, and enjoy!
-
-*Linux*
-~~~~~~~
-
-We recommend you run the linux version off of a LiveUSB for maximum
-security (just as you would with a normal paper wallet) 1. Connect to
-the internet. 2. Run ``sudo apt-get install 3d-wallet-generator`` in a
-Terminal. 3. *Disconnect from the internet!* 4. Run ``gen3dwallet`` in a
-Terminal. 5. Enjoy! Don't connect this device to the internet again
-after you have created your wallet.
+We recommend you run the Linux version off of a LiveUSB for maximum
+security (just as you would with a normal paper wallet).
 
 Miscellaneous
 -------------
@@ -78,4 +76,5 @@ To Do / Features Coming Soon
 -  Add option to import your own addresses/private keys
 -  Offset the white in the QR code (instead of just offsetting the
    black)
+- If you want any of these developed faster, send us a gift to our donation address above.
 
