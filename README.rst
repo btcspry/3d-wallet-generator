@@ -43,7 +43,7 @@ Instructions
 	- Mac: install from MacPorts or Brew
 	- Linux: ``sudo apt-get install python3-pip``
 2. Install OpenSCAD
-	- Download from `their website <http://www.openscad.org/downloads.html>`_
+	- Download from their website (OpenSCad.org/downloads.html)
 	- Make sure you are running their newest version (or at least OpenSCAD 2015)
 	- Contact us if you need help.  
 2. Install our package
