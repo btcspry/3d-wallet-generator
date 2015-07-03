@@ -42,9 +42,9 @@ Instructions
 1. Install pip
 	- Windows: download from their website
 	- Mac: install from MacPorts or Brew
-	- Linux: ``sudo apt-get install python3-pip``
+	- Linux (Ubuntu/Debian): ``sudo apt-get install python3-pip``
 2. Install OpenSCAD
-	- Download from their website
+	- `Download from their website <http://openscad.org/downloads.html>`_
 	- Make sure you are running their newest version (or at least OpenSCAD 2015)
 	- Contact us if you need help.
 3. Install our package
