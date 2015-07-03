@@ -1,3 +1,4 @@
+
 3D Wallet Generator
 ===================
 
@@ -45,12 +46,12 @@ Instructions
 2. Install OpenSCAD
 	- Download from their website
 	- Make sure you are running their newest version (or at least OpenSCAD 2015)
-	- Contact us if you need help.  
-2. Install our package
+	- Contact us if you need help.
+3. Install our package
 	- Try: ``pip install 3d-wallet-generator``
 	- If it failes, try: ``pip install 3d-wallet-generator``
 	- If it continues to fail, shoot us an email and we'll try to help.
-3. Use our package
+4. Use our package
 	- Run ``3dwallet -h`` to see your options
 	- Try the default settings by running `3dwallet` - it will output five wallets, with the default settings, into a folder in your current directory.
 	- Play with the other settings and decide how your printer, CNC, etc. likes the different styles.
@@ -75,5 +76,4 @@ To Do / Features Coming Soon
 -  Add option to import your own addresses/private keys
 -  Offset the white in the QR code (instead of just offsetting the
    black)
-- If you want any of these developed faster, send us a gift to our donation address above.
-
+-  If you want any of these developed faster, send us a gift to our donation address above.
