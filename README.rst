@@ -52,7 +52,7 @@ Instructions
 	- If it continues to fail, shoot us an email and we'll try to help.
 4. Use our package
 	- Run ``3dwallet -h`` to see your options
-	- Try the default settings by running `3dwallet` - it will output five wallets, with the default settings, into a folder in your current directory.
+	- Try the default settings by running ``3dwallet`` - it will output five wallets, with the default settings, into a folder in your current directory.
 	- Play with the other settings and decide how your printer, CNC, etc. likes the different styles.
 	- Film it or take a picture, and give it to us! We'll add it to our collection!
 
