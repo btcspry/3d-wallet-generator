@@ -7,7 +7,7 @@ This project helps you design and export 3D-printable wallets, similar to paper 
 
 Everyone who's seriously serious about bitcoin has tried paper wallet
 generators. While the idea is great, paper isn't a great medium out of
-which to make something that stores significant value. This this in
+which to make something that stores significant value. With this in
 mind, we set out to make a simple, easy-to-use software that can design
 and export 3D-printable wallets, with a variety of configuration
 options.
