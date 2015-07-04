@@ -48,8 +48,7 @@ Instructions
 	- Make sure you are running their newest version (or at least OpenSCAD 2015)
 	- Contact us if you need help.
 3. Install our package
-	- Try: ``pip install 3d-wallet-generator``
-	- If it failes, try: ``pip install 3d-wallet-generator``
+	- Try: ``sudo pip3 install 3d-wallet-generator``
 	- If it continues to fail, shoot us an email and we'll try to help.
 4. Use our package
 	- Run ``3dwallet -h`` to see your options
